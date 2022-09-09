@@ -109,7 +109,12 @@ def get_urls(reddit_posts):
     return [post.required_data['url'] for post in reddit_posts if post.is_downloadable() == True]
 
 def main():
-    query_keyword, total_pages = sys.argv[1:]
+    if len(sys.argv[1:]) == 2:
+
+        query_keyword, total_pages = sys.argv[1:]
+    else:
+        query_keyword = 'wallpaper'
+        total_pages = 2
     params = None
     urls = []
     print(total_pages)
@@ -119,20 +124,21 @@ def main():
         reddit_posts = [RedditPost(child) for child in json_data['data']['children']]
 
         #urls.append(get_urls(reddit_posts)) #gets urls for our streamlit app
-        #for post in reddit_posts:
-
-           # urls.append(post.get_url())
+        for post in reddit_posts:
+            #print(post.get_url())
+            #print("--------------------------")
+            urls.append(post.get_url())
         
     
-        for post in reddit_posts:
-             #post.download()
-             print(post)
-             print("------------")
+        # for post in reddit_posts:
+        #      #post.download()
+        #      print(post)
+        #      print("------------")
             
         next_page = json_data['data']['after']
         params = dict(after=next_page)
 
-
+    return urls
 if __name__ == "__main__":
     main()
     

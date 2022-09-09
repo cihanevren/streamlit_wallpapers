@@ -1,5 +1,5 @@
 import streamlit as st
-import numpy as np
+import itertools
 
 def paginator(label, items, items_per_page=10, on_sidebar=True):
     """Lets the user paginate a set of items.
@@ -50,5 +50,5 @@ def paginator(label, items, items_per_page=10, on_sidebar=True):
     # Iterate over the items in the page to let the user display them.
     min_index = page_number * items_per_page
     max_index = min_index + items_per_page
-    import itertools
+    
     return itertools.islice(enumerate(items), min_index, max_index)
